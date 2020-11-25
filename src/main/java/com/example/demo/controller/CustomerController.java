@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequestMapping(value = {"/","/customer"})
 public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping(value = {"/","/customer/list"})
+    @GetMapping(value = {"/","/list"})
     public String listCustomers(Model model){
         List<Customer> customerList = customerService.getCustomers();
         model.addAttribute("customers",customerList);
@@ -30,7 +31,7 @@ public class CustomerController {
         Customer customer = new Customer();
         model.addAttribute("customer",customer);
 
-        return "costumer-form";
+        return "customer-form";
     }
 
     @GetMapping("/showFormForUpdate")
@@ -38,7 +39,14 @@ public class CustomerController {
         Customer customer = customerService.getCustomer(id);
         model.addAttribute("customer",customer);
 
-        return "costumer-form";
+        return "customer-form";
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam("customerId") long id){
+        customerService.deleteCustomer(id);
+
+        return "redirect:/customer/list";
     }
 
     @PostMapping("/saveCustomer")

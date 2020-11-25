@@ -31,4 +31,10 @@ public class CustomerServiceImpl implements CustomerService{
     public Customer getCustomer(long id) {
         return customerRepository.getOne(id);
     }
+
+    @Override
+    @Transactional
+    public void deleteCustomer(long id) {
+        customerRepository.deleteById(id);
+    }
 }

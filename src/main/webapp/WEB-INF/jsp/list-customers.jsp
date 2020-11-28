@@ -1,4 +1,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,5 +54,15 @@
             </table>
         </div>
     </div>
+    <br>
+    <security:authorize access="hasRole('ADMIN')">
+        <p>
+            <a href="/admin/logs">Logs</a>
+        </p>
+    </security:authorize>
+
+    <form:form action="/logout" method="POST">
+        <input type="submit" value="Logout">
+    </form:form>
 </body>
 </html>

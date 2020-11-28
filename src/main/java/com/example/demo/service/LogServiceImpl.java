@@ -6,6 +6,8 @@ import com.example.demo.domain.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LogServiceImpl implements LogService{
     @Autowired
@@ -21,5 +23,10 @@ public class LogServiceImpl implements LogService{
     @Override
     public boolean exists(long id) {
         return customerRepository.existsById(id);
+    }
+
+    @Override
+    public List<Log> getLogs() {
+        return logRepository.findAll();
     }
 }

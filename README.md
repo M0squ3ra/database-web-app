@@ -19,3 +19,5 @@ spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialec
 spring.jpa.hibernate.ddl-auto = update
 ```
 
+Updates:
+ - Added simple Log information for Create, Update and Delete

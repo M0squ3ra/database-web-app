@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder())
                 .dataSource(dataSource)
                 .usersByUsernameQuery("select username,password, enabled from users where username=?")
-                .authoritiesByUsernameQuery("select username, authority from authorities where username=?")
+                .authoritiesByUsernameQuery("select username, authority from authorities where username=?");
 //                .withDefaultSchema() //Cause the default schema is not suitable for PostgreSQL
 //              Uncomment the next two lines for the first time to include these users into the database
 //                .withUser(User.withUsername("user").password(passwordEncoder().encode("password")).roles("USER"))
@@ -44,7 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.csrf().disable()
+                .authorizeRequests()
                 .antMatchers("/").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()

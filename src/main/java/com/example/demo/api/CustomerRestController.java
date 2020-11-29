@@ -1,0 +1,58 @@
+package com.example.demo.api;
+
+import com.example.demo.domain.Customer;
+import com.example.demo.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController()
+@RequestMapping("/api")
+public class CustomerRestController {
+
+    @Autowired
+    private CustomerService customerService;
+
+    @GetMapping("/customers")
+    public List<Customer> getCustomers(){
+        return customerService.getCustomers();
+    }
+
+    @GetMapping("/customers/{id}")
+    public Customer getCustomer(@PathVariable long id){
+        Customer customer = customerService.getCustomer(id);
+
+        if(customer == null){
+            throw new CustomerNotFoundException("Customer id not found - " + id);
+        }
+        return customer ;
+    }
+
+    @PostMapping("/customers")
+    public Customer addCustomer(@RequestBody Customer customer){
+        customer.setId(0); // set to 0 to insert and don't update
+        customerService.saveCustomer(customer);
+        return customer;
+    }
+
+    @PutMapping("/customers")
+    public Customer updateCustomer(@RequestBody Customer customer){
+        customerService.saveCustomer(customer);
+        return customer;
+    }
+
+    @DeleteMapping("/customers/{id}")
+    public String deleteCustomer(@PathVariable long id){
+
+        Customer customer = customerService.getCustomer(id);
+
+        if(customer == null){
+            throw new CustomerNotFoundException("Customer id not found - " + id);
+        }
+
+        customerService.deleteCustomer(id);
+        return "Deleted customer - " + id;
+    }
+}

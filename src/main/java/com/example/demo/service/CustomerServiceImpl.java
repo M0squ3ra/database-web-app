@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService{
@@ -29,7 +30,14 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     @Transactional
     public Customer getCustomer(long id) {
-        return customerRepository.getOne(id);
+        Optional<Customer> customerOpt = customerRepository.findById(id);
+        Customer customer;
+        if(customerOpt.isPresent()){
+            customer = customerOpt.get();
+        } else {
+            customer = null;
+        }
+        return customer;
     }
 
     @Override

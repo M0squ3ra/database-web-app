@@ -46,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/api/customers/**").authenticated()
+                .antMatchers("/api/**").authenticated()
+//                .antMatchers("/api/logs/**").authenticated()
                 .antMatchers("/").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
@@ -62,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .httpBasic()
                 .and()
-                    .csrf().disable()
-                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);;
+                    .csrf().disable();
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 }

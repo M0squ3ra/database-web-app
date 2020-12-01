@@ -1,6 +1,7 @@
 package com.example.demo.domain;
 
 import lombok.*;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
+@RestResource(exported = false)
 public class Log {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

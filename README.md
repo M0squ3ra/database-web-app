@@ -17,6 +17,8 @@ spring.datasource.password=yourPostgresPassword
 spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
 # Hibernate ddl auto (create, create-drop, validate, update)
 spring.jpa.hibernate.ddl-auto = update
+
+spring.data.rest.base-path=/api
 ```
 
 Updates:
